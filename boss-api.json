@@ -1,0 +1,2671 @@
+{
+  "components": {
+    "schemas": {
+      "AuthenticationEmailLoginRequestBody": {
+        "properties": {
+          "email": {
+            "example": "test1@example.com",
+            "type": "string"
+          },
+          "password": {
+            "example": "123456",
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"],
+        "type": "object"
+      },
+      "AuthenticationEmailRegisterRequestBody": {
+        "properties": {
+          "email": {
+            "example": "test1@example.com",
+            "type": "string"
+          },
+          "password": {
+            "example": "123456",
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"],
+        "type": "object"
+      },
+      "BatteryStatusAdvanced": {
+        "properties": {
+          "alarm": {
+            "description": "Battery alarm status",
+            "type": "boolean"
+          },
+          "alarm_reason": {
+            "description": "Reason for battery alarm",
+            "type": "string"
+          },
+          "consumed_energy": {
+            "description": "Consumed energy in watt-hours",
+            "type": "number"
+          },
+          "current": {
+            "description": "Battery current in amps",
+            "type": "number"
+          },
+          "is_charging": {
+            "description": "Whether the battery is currently charging",
+            "type": "boolean"
+          },
+          "percentage": {
+            "description": "Battery charge percentage (0.0 to 1.0)",
+            "type": "number"
+          },
+          "power": {
+            "description": "Battery power in watts",
+            "type": "number"
+          },
+          "remaining_range": {
+            "description": "Remaining range in meters",
+            "type": "number"
+          },
+          "time_remaining_min": {
+            "description": "Time remaining in minutes",
+            "type": "number"
+          },
+          "voltage": {
+            "description": "Battery voltage in volts",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "CustomerWebhook": {
+        "properties": {
+          "id": {
+            "nullable": true,
+            "readOnly": true,
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": ["url"],
+        "type": "object"
+      },
+      "CustomerWebhooksPaginatedResponse": {
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CustomerWebhook"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          },
+          "statusCode": {
+            "type": "number"
+          }
+        },
+        "required": ["data", "pages", "count"],
+        "type": "object"
+      },
+      "CustomerWebhooksPostBody": {
+        "properties": {
+          "secret": {
+            "example": "my-secret-key",
+            "type": "string"
+          },
+          "url": {
+            "example": "https://example.com/webhook",
+            "type": "string"
+          }
+        },
+        "required": ["url"],
+        "type": "object"
+      },
+      "DestinationMapsPaginatedResponse": {
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Network"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          },
+          "statusCode": {
+            "type": "number"
+          }
+        },
+        "required": ["data", "pages", "count"],
+        "type": "object"
+      },
+      "DestinationTaskParameters": {
+        "properties": {
+          "id": {
+            "description": "The exact ID of the destination to go to.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The exact string name of the destination to go to.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "DriveSystemStopFlagsStatus": {
+        "properties": {
+          "is_emergency_stopped": {
+            "description": "Whether the robot is emergency stopped",
+            "type": "boolean"
+          },
+          "is_position_hold": {
+            "description": "Whether the robot is in position hold mode",
+            "type": "boolean"
+          },
+          "is_stopped": {
+            "description": "Whether the robot is stopped",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "nullable": true,
+            "type": "string"
+          },
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "object"
+          },
+          "message": {
+            "nullable": true,
+            "type": "string"
+          },
+          "method": {
+            "nullable": true,
+            "type": "string"
+          },
+          "statusCode": {
+            "nullable": true,
+            "type": "number"
+          },
+          "timestamp": {
+            "nullable": true,
+            "type": "string"
+          },
+          "url": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "FailSafeStatus": {
+        "properties": {
+          "active_additional_actions": {
+            "description": "List of active additional safety actions",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "active_faults": {
+            "description": "List of active fault reasons",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "enforced_action_severity_level": {
+            "description": "Severity level of enforced safety action",
+            "type": "number"
+          },
+          "trigger_notification": {
+            "description": "Whether to trigger a notification",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Feature": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "geometry": {
+            "description": "The feature's geometry.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Point"
+              },
+              {
+                "$ref": "#/components/schemas/MultiPoint"
+              },
+              {
+                "$ref": "#/components/schemas/LineString"
+              },
+              {
+                "$ref": "#/components/schemas/MultiLineString"
+              },
+              {
+                "$ref": "#/components/schemas/Polygon"
+              },
+              {
+                "$ref": "#/components/schemas/MultiPolygon"
+              }
+            ]
+          },
+          "id": {
+            "description": "A value that uniquely identifies this feature.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Properties associated with this feature.",
+            "type": "object"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "geometry", "properties"],
+        "type": "object"
+      },
+      "FeatureCollection": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "features": {
+            "description": "Array of feature objects.",
+            "items": {
+              "$ref": "#/components/schemas/Feature"
+            },
+            "type": "array"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Properties associated with this feature.",
+            "nullable": true,
+            "type": "object"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "features", "properties"],
+        "type": "object"
+      },
+      "FeatureCollectionResponse": {
+        "properties": {
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FeatureCollection"
+              }
+            ],
+            "description": "Feature collection data."
+          },
+          "message": {
+            "description": "Response message.",
+            "example": "success",
+            "type": "string"
+          },
+          "statusCode": {
+            "description": "HTTP status code.",
+            "example": 200,
+            "type": "number"
+          }
+        },
+        "required": ["data"],
+        "type": "object"
+      },
+      "GPSFix": {
+        "properties": {
+          "latitude": {
+            "description": "Latitude coordinate in degrees",
+            "nullable": true,
+            "type": "number"
+          },
+          "longitude": {
+            "description": "Longitude coordinate in degrees",
+            "nullable": true,
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "GPSStats": {
+        "properties": {
+          "base_station_distance": {
+            "description": "Distance to base station in meters",
+            "nullable": true,
+            "type": "number"
+          },
+          "base_station_id": {
+            "description": "Base station identifier",
+            "nullable": true,
+            "type": "string"
+          },
+          "fix_status": {
+            "description": "GPS fix quality. Fixed = RTK fixed (highest accuracy). Float = RTK float (converging). 3D Fix = standard GNSS, no RTK. None = no fix or GPS device unresponsive.",
+            "enum": ["Fixed", "Float", "3D Fix", "None"],
+            "nullable": true,
+            "type": "string"
+          },
+          "gps_confidence": {
+            "description": "GPS confidence level (0-1)",
+            "nullable": true,
+            "type": "number"
+          },
+          "localization_status": {
+            "description": "Robot's confidence in its position estimate. good = confidently localized. uncertain = degraded but available. lost = cannot determine position.",
+            "enum": ["good", "uncertain", "lost"],
+            "nullable": true,
+            "type": "string"
+          },
+          "radio_rtk": {
+            "description": "RTK radio signal strength",
+            "nullable": true,
+            "type": "number"
+          },
+          "satellite_count": {
+            "description": "Number of visible satellites",
+            "nullable": true,
+            "type": "number"
+          },
+          "signal_strength": {
+            "description": "GPS signal strength",
+            "nullable": true,
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "LidarSitemapMetadata": {
+        "properties": {
+          "apriltags_count": {
+            "nullable": true,
+            "type": "number"
+          },
+          "name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "revision": {
+            "nullable": true,
+            "type": "number"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LineString": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Array of coordinates for the LineString.",
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "LocalizationStatus": {
+        "properties": {
+          "fix": {
+            "$ref": "#/components/schemas/GPSFix"
+          },
+          "heading": {
+            "description": "Robot heading in degrees, where 0 is north, 90 is east, 180 is south, and 270 is west",
+            "type": "number"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/GPSStats"
+          },
+          "timestamp": {
+            "description": "ISO 8601 formatted datetime with microseconds and timezone (YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM)",
+            "type": "string"
+          }
+        },
+        "required": ["stats", "fix"],
+        "type": "object"
+      },
+      "Mission": {
+        "properties": {
+          "description": {
+            "description": "User-facing description for Mission.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifier for the Mission.",
+            "type": "string"
+          },
+          "name": {
+            "description": "User-facing name for Mission.",
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Implementor convenience to place non-execution metadata.",
+            "type": "object"
+          },
+          "tasks": {
+            "$ref": "#/components/schemas/TaskGroup"
+          }
+        },
+        "type": "object"
+      },
+      "MissionState": {
+        "properties": {
+          "completed_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "type": "array"
+          },
+          "completed_tasks_this_iteration": {
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "type": "array"
+          },
+          "current_task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "future_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "type": "array"
+          },
+          "is_complete": {
+            "type": "boolean"
+          },
+          "mission": {
+            "$ref": "#/components/schemas/Mission"
+          },
+          "next_task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "overall_progress": {
+            "example": 0.5,
+            "type": "number"
+          },
+          "timestamp": {
+            "example": "2025-07-17T17:08:19.155911-04:00",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "MotionGovernorState": {
+        "description": "Aggregated state of the motion governing system. Controls autonomous motion and reflects obstacle and fault states.",
+        "properties": {
+          "autonomous_motion_enabled": {
+            "description": "Whether autonomous motion is currently globally enabled. False when in a stop state, in a non-autonomous operating mode, or manually disabled via stop button.",
+            "type": "boolean"
+          },
+          "state": {
+            "description": "Current motion state. OK = nominal. SLOWDOWN = speed reduced. STOP = motion halted.",
+            "enum": ["OK", "SLOWDOWN", "STOP"],
+            "type": "string"
+          },
+          "state_reasons": {
+            "description": "Active reasons for the current motion state. Empty when nominal. Possible values: POWER_SAVING_MODE_STOP (idle timeout), WATCHDOG_TIMEOUT_STOP (messaging timeout / disconnected sensor), OBSTACLE_STOP, FAULT_STOP, PAUSE_STOP (paused between tasks or by stop button), OBSTACLE_SLOWDOWN, FAULT_SLOWDOWN.",
+            "items": {
+              "enum": [
+                "POWER_SAVING_MODE_STOP",
+                "WATCHDOG_TIMEOUT_STOP",
+                "OBSTACLE_STOP",
+                "FAULT_STOP",
+                "PAUSE_STOP",
+                "OBSTACLE_SLOWDOWN",
+                "FAULT_SLOWDOWN"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": ["autonomous_motion_enabled", "state", "state_reasons"],
+        "type": "object"
+      },
+      "MultiLineString": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Array of arrays of coordinates for the MultiLineString.",
+            "items": {
+              "items": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "MultiPoint": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Array of coordinates for the MultiPoint.",
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "MultiPolygon": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Array of arrays of arrays of coordinates for the MultiPolygon.",
+            "items": {
+              "items": {
+                "items": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "Network": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "NetworkMapDetails": {
+        "properties": {
+          "created_date": {
+            "type": "string"
+          },
+          "lidar_sitemap": {
+            "$ref": "#/components/schemas/LidarSitemapMetadata"
+          },
+          "modified_date": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "number"
+          },
+          "site_bounds": {
+            "type": "object"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uid",
+          "name",
+          "modified_date",
+          "created_date",
+          "revision"
+        ],
+        "type": "object"
+      },
+      "NetworkMapStatus": {
+        "properties": {
+          "map": {
+            "$ref": "#/components/schemas/NetworkMapDetails"
+          },
+          "status": {
+            "enum": ["unknown", "localized_off_map", "loading_error", "on_map"],
+            "type": "string"
+          }
+        },
+        "required": ["status"],
+        "type": "object"
+      },
+      "ObstacleDetectionStatus": {
+        "properties": {
+          "obstacle_slowdown_types": {
+            "description": "Types of obstacles causing slowdown behavior. Empty when no slowdown. Same values as obstacle_stop_types.",
+            "items": {
+              "enum": ["PERSON_NEARBY", "OTHER"],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "obstacle_stop_types": {
+            "description": "Types of obstacles causing stop behavior. Empty when no stop. PERSON_NEARBY = person in proximity. OTHER = generic obstacle.",
+            "items": {
+              "enum": ["PERSON_NEARBY", "OTHER"],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "state": {
+            "description": "Current obstacle handling state. NO_OBSTACLE = clear path. DETECTED_OBSTACLE = obstacle requires stop. DETECTED_SLOWDOWN = obstacle requires slowdown. FAULT = detection system fault (e.g. sensor not publishing).",
+            "enum": [
+              "NO_OBSTACLE",
+              "DETECTED_OBSTACLE",
+              "DETECTED_SLOWDOWN",
+              "FAULT"
+            ],
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": ["state", "obstacle_stop_types", "obstacle_slowdown_types"],
+        "type": "object"
+      },
+      "PaginatedFeatureCollectionResponse": {
+        "properties": {
+          "count": {
+            "example": 10,
+            "type": "number"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeatureCollection"
+          },
+          "message": {
+            "example": "success",
+            "type": "string"
+          },
+          "pages": {
+            "example": 100,
+            "type": "number"
+          },
+          "statusCode": {
+            "example": 200,
+            "type": "number"
+          }
+        },
+        "required": ["pages", "count", "data"],
+        "type": "object"
+      },
+      "PathFollowStatus": {
+        "properties": {
+          "angle": {
+            "description": "Angle (in radians) of the robot's heading relative to the nearest node on the path",
+            "nullable": true,
+            "type": "number"
+          },
+          "distance": {
+            "type": "object"
+          },
+          "is_path_too_far": {
+            "description": "Whether path is too far",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "lost": {
+            "description": "Whether robot is lost",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "route_error": {
+            "description": "Whether there is a route error",
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "PlatformStatus": {
+        "properties": {
+          "api_ip_address": {
+            "description": "API IP address and port",
+            "example": "192.168.3.42:9090",
+            "type": "string"
+          },
+          "customer_tag": {
+            "description": "Customer tag",
+            "example": "customer-xyz",
+            "type": "string"
+          },
+          "disk_available": {
+            "description": "Available disk space",
+            "example": "42.1GB",
+            "type": "string"
+          },
+          "disk_size": {
+            "description": "Total disk size",
+            "example": "128.0GB",
+            "type": "string"
+          },
+          "internet_connected": {
+            "description": "Internet connection status",
+            "enum": ["Online", "Offline"],
+            "type": "string"
+          },
+          "robot_generation": {
+            "description": "Robot drive mode/generation",
+            "example": "GEN8v5",
+            "type": "string"
+          },
+          "robot_id": {
+            "description": "4-digit robot identifier",
+            "example": "1234",
+            "type": "string"
+          },
+          "server_status": {
+            "description": "Server connection status",
+            "enum": ["Online", "Offline"],
+            "type": "string"
+          },
+          "session_metrics": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SessionMetrics"
+              }
+            ],
+            "description": "Current session metrics"
+          },
+          "software_version": {
+            "description": "Software version with optional release phase",
+            "example": "v1.2.3-beta",
+            "type": "string"
+          },
+          "support_email": {
+            "description": "Support email",
+            "example": "support@example.com",
+            "type": "string"
+          },
+          "support_phone_number": {
+            "description": "Support phone number",
+            "example": "+1-800-555-1234",
+            "type": "string"
+          },
+          "today_metrics": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SessionMetrics"
+              }
+            ],
+            "description": "Today's session metrics"
+          }
+        },
+        "required": ["today_metrics", "session_metrics"],
+        "type": "object"
+      },
+      "Point": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Coordinates of the Point.",
+            "example": [102, 0.5],
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": ["Point"],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "Polygon": {
+        "properties": {
+          "bbox": {
+            "description": "Bounding box of the coordinate range of the object.",
+            "items": {
+              "type": "number"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "coordinates": {
+            "description": "Array of arrays of coordinates for the Polygon.",
+            "items": {
+              "items": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Specifies the type of GeoJSON object.",
+            "enum": [
+              "Feature",
+              "FeatureCollection",
+              "Point",
+              "MultiPoint",
+              "LineString",
+              "MultiLineString",
+              "Polygon",
+              "MultiPolygon",
+              "GeometryCollection"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["type", "coordinates"],
+        "type": "object"
+      },
+      "RetraceTaskParameters": {
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the retrace task",
+            "type": "string"
+          },
+          "unidirectional": {
+            "description": "Whether the retrace is unidirectional",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Robot": {
+        "properties": {
+          "serialNumber": {
+            "example": "8886",
+            "nullable": true,
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/RobotState"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RobotStatusResponse"
+          }
+        },
+        "required": ["status", "state"],
+        "type": "object"
+      },
+      "RobotCommandMissionLoadPostBody": {
+        "properties": {
+          "expiration": {
+            "description": "Expiration date of the mission",
+            "format": "date-time",
+            "type": "string"
+          },
+          "mission": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Mission"
+              }
+            ],
+            "description": "Mission details"
+          }
+        },
+        "type": "object"
+      },
+      "RobotCommandMissionLoadPostResponse": {
+        "properties": {
+          "message": {
+            "description": "Response message.",
+            "example": "success",
+            "type": "string"
+          },
+          "statusCode": {
+            "description": "HTTP status code.",
+            "example": 200,
+            "type": "number"
+          }
+        },
+        "required": ["message", "statusCode"],
+        "type": "object"
+      },
+      "RobotCommandMissionPlayPostBody": {
+        "properties": {
+          "expiration": {
+            "description": "Expiration date of the mission",
+            "format": "date-time",
+            "type": "string"
+          },
+          "mission_id": {
+            "description": "ID of the mission to play",
+            "type": "string"
+          }
+        },
+        "required": ["mission_id"],
+        "type": "object"
+      },
+      "RobotResponse": {
+        "properties": {
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Robot"
+              }
+            ],
+            "description": "Robot data."
+          },
+          "message": {
+            "description": "Response message.",
+            "example": "success",
+            "type": "string"
+          },
+          "statusCode": {
+            "description": "HTTP status code.",
+            "example": 200,
+            "type": "number"
+          }
+        },
+        "required": ["message", "statusCode", "data"],
+        "type": "object"
+      },
+      "RobotState": {
+        "properties": {
+          "mission": {
+            "$ref": "#/components/schemas/MissionState"
+          }
+        },
+        "type": "object"
+      },
+      "RobotStatusResponse": {
+        "properties": {
+          "battery": {
+            "$ref": "#/components/schemas/BatteryStatusAdvanced"
+          },
+          "drive_system_stop_flags": {
+            "$ref": "#/components/schemas/DriveSystemStopFlagsStatus"
+          },
+          "fail_safe": {
+            "$ref": "#/components/schemas/FailSafeStatus"
+          },
+          "localization": {
+            "$ref": "#/components/schemas/LocalizationStatus"
+          },
+          "motion_governor": {
+            "$ref": "#/components/schemas/MotionGovernorState"
+          },
+          "network_map": {
+            "$ref": "#/components/schemas/NetworkMapStatus"
+          },
+          "obstacle_handling": {
+            "$ref": "#/components/schemas/ObstacleDetectionStatus"
+          },
+          "path_follow": {
+            "$ref": "#/components/schemas/PathFollowStatus"
+          },
+          "platform": {
+            "$ref": "#/components/schemas/PlatformStatus"
+          },
+          "route_planner": {
+            "$ref": "#/components/schemas/RoutePlannerStatusSimple"
+          },
+          "velocity": {
+            "$ref": "#/components/schemas/SystemVelocityVelocity"
+          }
+        },
+        "type": "object"
+      },
+      "RobotsPaginatedResponse": {
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Robot"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          },
+          "statusCode": {
+            "type": "number"
+          }
+        },
+        "required": ["data", "pages", "count"],
+        "type": "object"
+      },
+      "RoutePlannerStatusSimple": {
+        "properties": {
+          "reachable_destinations_count": {
+            "description": "Number of reachable destinations from the robot's current pose",
+            "type": "number"
+          }
+        },
+        "required": ["reachable_destinations_count"],
+        "type": "object"
+      },
+      "SessionMetrics": {
+        "properties": {
+          "distance": {
+            "description": "Distance traveled (e.g., \"123.4m\")",
+            "nullable": true,
+            "type": "string"
+          },
+          "time_moving": {
+            "description": "Time spent moving (e.g., \"01:23:45\")",
+            "nullable": true,
+            "type": "string"
+          },
+          "time_on": {
+            "description": "Time powered on (e.g., \"02:34:56\")",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SystemVelocityVelocity": {
+        "properties": {
+          "angular_z": {
+            "description": "Angular velocity around z axis",
+            "type": "number"
+          },
+          "linear_x": {
+            "description": "Linear velocity in x direction",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "Task": {
+        "properties": {
+          "after": {
+            "$ref": "#/components/schemas/Transition"
+          },
+          "description": {
+            "description": "Optional, user-facing description for Task.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifier for the Task.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Optional, user-facing name for Task.",
+            "type": "string"
+          },
+          "parameters": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TaskParameters"
+              }
+            ],
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TaskGroupParameters"
+              },
+              {
+                "$ref": "#/components/schemas/RetraceTaskParameters"
+              },
+              {
+                "$ref": "#/components/schemas/DestinationTaskParameters"
+              }
+            ]
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Optional, implementor convenience to place non-execution metadata.",
+            "type": "object"
+          },
+          "type": {
+            "description": "Discriminates what type of Task this is, determines shape of parameters.",
+            "enum": ["TaskGroup", "DestinationTask", "RetraceTask"],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskGroup": {
+        "properties": {
+          "after": {
+            "$ref": "#/components/schemas/Transition"
+          },
+          "description": {
+            "description": "Optional, user-facing description for Task.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifier for the Task.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Optional, user-facing name for Task.",
+            "type": "string"
+          },
+          "parameters": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TaskGroupParameters"
+              }
+            ],
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TaskGroupParameters"
+              },
+              {
+                "$ref": "#/components/schemas/RetraceTaskParameters"
+              },
+              {
+                "$ref": "#/components/schemas/DestinationTaskParameters"
+              }
+            ]
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Optional, implementor convenience to place non-execution metadata.",
+            "type": "object"
+          },
+          "type": {
+            "default": "TaskGroup",
+            "description": "Discriminates what type of Task this is, determines shape of parameters.",
+            "enum": ["TaskGroup", "DestinationTask", "RetraceTask"],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskGroupParameters": {
+        "properties": {
+          "tasks": {
+            "description": "List of tasks",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "TaskParameters": {
+        "properties": {},
+        "type": "object"
+      },
+      "TokensResponse": {
+        "properties": {
+          "refreshToken": {
+            "description": "Refresh token",
+            "type": "string"
+          },
+          "token": {
+            "description": "Access token",
+            "type": "string"
+          },
+          "tokenExpires": {
+            "description": "Token expiration timestamp in milliseconds",
+            "type": "number"
+          }
+        },
+        "required": ["token", "refreshToken", "tokenExpires"],
+        "type": "object"
+      },
+      "Transition": {
+        "properties": {
+          "parameters": {
+            "description": "Transition-specific parameters. Required for AfterDurationTransition: { duration_sec: number }.",
+            "type": "object"
+          },
+          "type": {
+            "description": "WaitForInputTransition = robot holds at the destination until a play command is received. AfterDurationTransition = robot automatically advances after `parameters.duration_sec` seconds.",
+            "enum": ["AfterDurationTransition", "WaitForInputTransition"],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "x-api-key": {
+        "in": "header",
+        "name": "x-api-key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "contact": {},
+    "description": "The Burro BOSS API allows implementors to authenticate themselves, query and manage Robots and Missions, pull Networks and related geospatial resources, and configure Webhooks.",
+    "license": {
+      "name": "Proprietary",
+      "url": "https://support.burro.ai/"
+    },
+    "title": "Burro BOSS API",
+    "version": "6.34.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/authentication/email/login": {
+      "post": {
+        "description": "Returns an Access Token and a Refresh Token given valid email and password credentials. The email and password should be included in the request body as JSON.",
+        "operationId": "postEmailLogin",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationEmailLoginRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Login with email and password.",
+        "tags": ["Authentication"]
+      }
+    },
+    "/authentication/email/register": {
+      "post": {
+        "description": "Registers a new user with the given email and password, or logs in if the email is already registered. Returns an Access Token and a Refresh Token. The email and password should be included in the request body as JSON. Any user may register, but to access specific Customer information, contact Support to receive an API Key.",
+        "operationId": "postEmailRegister",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationEmailRegisterRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Register with email and password.",
+        "tags": ["Authentication"]
+      }
+    },
+    "/authentication/refresh": {
+      "get": {
+        "description": "Returns a new Access Token given a valid Refresh Token from prior authentication. The Refresh Token must be included in the Authorization header as a Bearer token. The response will include a new Access Token and a new Refresh Token.",
+        "operationId": "postRefresh",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Refreshes Access Token using Refresh Token.",
+        "tags": ["Authentication"]
+      }
+    },
+    "/networks": {
+      "get": {
+        "description": "Returns a list of Networks associated with the authenticated User. You can optionally include query parameters to specify pagination options.",
+        "operationId": "networksGet",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DestinationMapsPaginatedResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Networks for the authenticated User.",
+        "tags": ["Networks"]
+      }
+    },
+    "/networks/{networkId}": {
+      "get": {
+        "description": "Returns a specific Network associated with the authenticated User, including all Destinations, Paths, and Stations.",
+        "operationId": "networkGet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "networkId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureCollectionResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a specific Network for the authenticated User.",
+        "tags": ["Networks"]
+      }
+    },
+    "/networks/{networkId}/destinations": {
+      "get": {
+        "description": "Returns a list of Destinations associated with a specific Network. You can optionally include query parameters to specify pagination options.",
+        "operationId": "networkDestinationsGet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "networkId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Destinations for a specific Network.",
+        "tags": ["Networks"]
+      }
+    },
+    "/networks/{networkId}/paths": {
+      "get": {
+        "description": "Returns a list of Paths associated with a specific Network. You can optionally include query parameters to specify pagination options.",
+        "operationId": "networkPathsGet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "networkId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Paths for a specific Network.",
+        "tags": ["Networks"]
+      }
+    },
+    "/networks/{networkId}/stations": {
+      "get": {
+        "description": "Returns a list of Stations associated with a specific Network. You can optionally include query parameters to specify pagination options.",
+        "operationId": "networkStationsGet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "networkId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Stations for a specific Network.",
+        "tags": ["Networks"]
+      }
+    },
+    "/robots": {
+      "get": {
+        "description": "Returns a list of Robots associated with the authenticated User. You can optionally include query parameters to specify which status fields to include in the response. ",
+        "operationId": "robotsGet",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "networkStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "batteryStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "failSafeStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "velocityStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "localizationStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "platformStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "driveSystemStopFlagsStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pathFollowStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "obstacleHandlingStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "motionGovernorStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "missionState",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "routePlannerStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotsPaginatedResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Robots for the authenticated User.",
+        "tags": ["Robots"]
+      }
+    },
+    "/robots/{serialNumber}": {
+      "get": {
+        "description": "Returns a Robot associated with the authenticated user by serial number. You can optionally include query parameters to specify which status fields to include in the response.",
+        "operationId": "robotGet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serialNumber",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "networkStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "batteryStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "failSafeStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "velocityStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "localizationStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "platformStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "driveSystemStopFlagsStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pathFollowStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "obstacleHandlingStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "motionGovernorStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "missionState",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "routePlannerStatus",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get robot by serial number.",
+        "tags": ["Robots"]
+      }
+    },
+    "/robots/{serialNumber}/command/mission/load": {
+      "post": {
+        "description": "Loads a Mission to the Robot. The Mission will be created if it does not exist, or updated if it does exist. The Mission will not be started until the /play endpoint is called.",
+        "operationId": "robotCommandMissionLoadPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serialNumber",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RobotCommandMissionLoadPostBody"
+              }
+            }
+          },
+          "description": "The Mission to load to the Robot.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotCommandMissionLoadPostResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Load a mission to the Robot.",
+        "tags": ["Robots"]
+      }
+    },
+    "/robots/{serialNumber}/command/mission/play": {
+      "post": {
+        "description": "Starts a Mission on the Robot. The Mission must be loaded first using the /load endpoint.",
+        "operationId": "robotCommandMissionPlayPost",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serialNumber",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RobotCommandMissionPlayPostBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RobotCommandMissionLoadPostResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Plays a mission on the Robot.",
+        "tags": ["Robots"]
+      }
+    },
+    "/webhooks": {
+      "get": {
+        "description": "Returns a paginated list of Webhooks associated with the authenticated User. You can optionally include query parameters to specify pagination options.",
+        "operationId": "webhooksGet",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerWebhooksPaginatedResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all Webhooks for the authenticated User.",
+        "tags": ["Webhooks"]
+      },
+      "post": {
+        "description": "Creates a new Webhook associated with the authenticated User. The request body should include the URL to which the webhook will send POST requests when triggered, as well as an optional description. Returns the created Webhook entity.",
+        "operationId": "webhooksPost",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerWebhooksPostBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerWebhook"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new Webhook for the authenticated User.",
+        "tags": ["Webhooks"]
+      }
+    },
+    "/webhooks/test/{webhookId}": {
+      "post": {
+        "description": "Triggers a test Webhook associated with the authenticated User. The Webhook to trigger is identified by the webhookId path parameter. The Webhook will receive a test payload with event \"webhook.test\" and a sample message.",
+        "operationId": "webhooksTest",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "webhookId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook test sent successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Trigger a test Webhook for the authenticated User.",
+        "tags": ["Webhooks"]
+      }
+    },
+    "/webhooks/{webhookId}": {
+      "delete": {
+        "description": "Deletes a specific Webhook associated with the authenticated User. The Webhook to delete is identified by the webhookId path parameter.",
+        "operationId": "webhooksDelete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "webhookId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Webhook deleted successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a specific Webhook for the authenticated User.",
+        "tags": ["Webhooks"]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://boss-api.burro.ai"
+    },
+    {
+      "url": "https://boss-api-dev.burro.ai"
+    }
+  ],
+  "tags": []
+}
