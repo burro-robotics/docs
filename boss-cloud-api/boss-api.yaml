@@ -1126,7 +1126,7 @@ components:
 info:
   contact: {}
   description: |
-    # Getting Started with the Burro Cloud API
+    # Getting Started
 
 
     ## Background information
@@ -1143,19 +1143,10 @@ info:
 
     All status timestamps are in ISO-8601 string format with timezone included.
 
-    ### Companion Files
-    `mission_quickstart.py`: A short configurable script to quickly get up and running loading a mission to a robot.
-
-    `mission_api_verbose_flow.py`: A long-form script which prints full request and payload bodies at each step, as a first pass to get valid payload examples while developing client functionality.
-
 
     ## Prerequisites
-    **API version:** 6.29.0  
-    **Base URL:** `https://boss-api.burro.ai`
 
     Please request an API key from the Burro team for your customer.
-
-
 
     ---
 
