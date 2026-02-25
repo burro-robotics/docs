@@ -1,0 +1,2725 @@
+---
+components:
+  schemas:
+    AuthenticationEmailLoginRequestBody:
+      properties:
+        email:
+          example: test1@example.com
+          type: string
+        password:
+          example: '123456'
+          type: string
+      required:
+      - email
+      - password
+      type: object
+    AuthenticationEmailRegisterRequestBody:
+      properties:
+        email:
+          example: test1@example.com
+          type: string
+        password:
+          example: '123456'
+          type: string
+      required:
+      - email
+      - password
+      type: object
+    BatteryStatusAdvanced:
+      properties:
+        alarm:
+          description: Battery alarm status
+          type: boolean
+        alarm_reason:
+          description: Reason for battery alarm
+          type: string
+        consumed_energy:
+          description: Consumed energy in watt-hours
+          type: number
+        current:
+          description: Battery current in amps
+          type: number
+        is_charging:
+          description: Whether the battery is currently charging
+          type: boolean
+        percentage:
+          description: Battery charge percentage (0.0 to 1.0)
+          type: number
+        power:
+          description: Battery power in watts
+          type: number
+        remaining_range:
+          description: Remaining range in meters
+          type: number
+        time_remaining_min:
+          description: Time remaining in minutes
+          type: number
+        voltage:
+          description: Battery voltage in volts
+          type: number
+      type: object
+    CustomerWebhook:
+      properties:
+        id:
+          nullable: true
+          readOnly: true
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      type: object
+    CustomerWebhooksPaginatedResponse:
+      properties:
+        count:
+          type: number
+        data:
+          items:
+            "$ref": "#/components/schemas/CustomerWebhook"
+          nullable: true
+          type: array
+        message:
+          type: string
+        pages:
+          type: number
+        statusCode:
+          type: number
+      required:
+      - data
+      - pages
+      - count
+      type: object
+    CustomerWebhooksPostBody:
+      properties:
+        secret:
+          example: my-secret-key
+          type: string
+        url:
+          example: https://example.com/webhook
+          type: string
+      required:
+      - url
+      type: object
+    DestinationMapsPaginatedResponse:
+      properties:
+        count:
+          type: number
+        data:
+          items:
+            "$ref": "#/components/schemas/Network"
+          nullable: true
+          type: array
+        message:
+          type: string
+        pages:
+          type: number
+        statusCode:
+          type: number
+      required:
+      - data
+      - pages
+      - count
+      type: object
+    DestinationTaskParameters:
+      properties:
+        id:
+          description: The exact ID of the destination to go to.
+          type: string
+        name:
+          description: The exact string name of the destination to go to.
+          type: string
+      type: object
+    DriveSystemStopFlagsStatus:
+      properties:
+        is_emergency_stopped:
+          description: Whether the robot is emergency stopped
+          type: boolean
+        is_position_hold:
+          description: Whether the robot is in position hold mode
+          type: boolean
+        is_stopped:
+          description: Whether the robot is stopped
+          type: boolean
+      type: object
+    ErrorResponse:
+      properties:
+        error:
+          nullable: true
+          type: string
+        fields:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        message:
+          nullable: true
+          type: string
+        method:
+          nullable: true
+          type: string
+        statusCode:
+          nullable: true
+          type: number
+        timestamp:
+          nullable: true
+          type: string
+        url:
+          nullable: true
+          type: string
+      type: object
+    FailSafeStatus:
+      properties:
+        active_additional_actions:
+          description: List of active additional safety actions
+          items:
+            type: string
+          type: array
+        active_faults:
+          description: List of active fault reasons
+          items:
+            type: string
+          type: array
+        enforced_action_severity_level:
+          description: Severity level of enforced safety action
+          type: number
+        trigger_notification:
+          description: Whether to trigger a notification
+          type: boolean
+      type: object
+    Feature:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        geometry:
+          description: The feature's geometry.
+          oneOf:
+          - "$ref": "#/components/schemas/Point"
+          - "$ref": "#/components/schemas/MultiPoint"
+          - "$ref": "#/components/schemas/LineString"
+          - "$ref": "#/components/schemas/MultiLineString"
+          - "$ref": "#/components/schemas/Polygon"
+          - "$ref": "#/components/schemas/MultiPolygon"
+        id:
+          description: A value that uniquely identifies this feature.
+          oneOf:
+          - type: string
+          - type: number
+        properties:
+          additionalProperties: true
+          description: Properties associated with this feature.
+          type: object
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - geometry
+      - properties
+      type: object
+    FeatureCollection:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        features:
+          description: Array of feature objects.
+          items:
+            "$ref": "#/components/schemas/Feature"
+          type: array
+        properties:
+          additionalProperties: true
+          description: Properties associated with this feature.
+          nullable: true
+          type: object
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - features
+      - properties
+      type: object
+    FeatureCollectionResponse:
+      properties:
+        data:
+          allOf:
+          - "$ref": "#/components/schemas/FeatureCollection"
+          description: Feature collection data.
+        message:
+          description: Response message.
+          example: success
+          type: string
+        statusCode:
+          description: HTTP status code.
+          example: 200
+          type: number
+      required:
+      - data
+      type: object
+    GPSFix:
+      properties:
+        latitude:
+          description: Latitude coordinate in degrees
+          nullable: true
+          type: number
+        longitude:
+          description: Longitude coordinate in degrees
+          nullable: true
+          type: number
+      type: object
+    GPSStats:
+      properties:
+        base_station_distance:
+          description: Distance to base station in meters
+          nullable: true
+          type: number
+        base_station_id:
+          description: Base station identifier
+          nullable: true
+          type: string
+        fix_status:
+          description: GPS fix quality. Fixed = RTK fixed (highest accuracy). Float
+            = RTK float (converging). 3D Fix = standard GNSS, no RTK. None = no fix
+            or GPS device unresponsive.
+          enum:
+          - Fixed
+          - Float
+          - 3D Fix
+          - None
+          nullable: true
+          type: string
+        gps_confidence:
+          description: GPS confidence level (0-1)
+          nullable: true
+          type: number
+        localization_status:
+          description: Robot's confidence in its position estimate. good = confidently
+            localized. uncertain = degraded but available. lost = cannot determine
+            position.
+          enum:
+          - good
+          - uncertain
+          - lost
+          nullable: true
+          type: string
+        radio_rtk:
+          description: RTK radio signal strength
+          nullable: true
+          type: number
+        satellite_count:
+          description: Number of visible satellites
+          nullable: true
+          type: number
+        signal_strength:
+          description: GPS signal strength
+          nullable: true
+          type: number
+      type: object
+    LidarSitemapMetadata:
+      properties:
+        apriltags_count:
+          nullable: true
+          type: number
+        name:
+          nullable: true
+          type: string
+        revision:
+          nullable: true
+          type: number
+        uid:
+          type: string
+      type: object
+    LineString:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Array of coordinates for the LineString.
+          items:
+            items:
+              type: number
+            type: array
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    LocalizationStatus:
+      properties:
+        fix:
+          "$ref": "#/components/schemas/GPSFix"
+        heading:
+          description: Robot heading in degrees, where 0 is north, 90 is east, 180
+            is south, and 270 is west
+          type: number
+        stats:
+          "$ref": "#/components/schemas/GPSStats"
+        timestamp:
+          description: ISO 8601 formatted datetime with microseconds and timezone
+            (YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM)
+          type: string
+      required:
+      - stats
+      - fix
+      type: object
+    Mission:
+      properties:
+        description:
+          description: User-facing description for Mission.
+          type: string
+        id:
+          description: Unique identifier for the Mission.
+          type: string
+        name:
+          description: User-facing name for Mission.
+          type: string
+        properties:
+          additionalProperties: true
+          description: Implementor convenience to place non-execution metadata.
+          type: object
+        tasks:
+          "$ref": "#/components/schemas/TaskGroup"
+      type: object
+    MissionState:
+      properties:
+        completed_tasks:
+          items:
+            "$ref": "#/components/schemas/Task"
+          type: array
+        completed_tasks_this_iteration:
+          items:
+            "$ref": "#/components/schemas/Task"
+          type: array
+        current_task:
+          "$ref": "#/components/schemas/Task"
+        future_tasks:
+          items:
+            "$ref": "#/components/schemas/Task"
+          type: array
+        is_complete:
+          type: boolean
+        mission:
+          "$ref": "#/components/schemas/Mission"
+        next_task:
+          "$ref": "#/components/schemas/Task"
+        overall_progress:
+          example: 0.5
+          type: number
+        timestamp:
+          example: '2025-07-17T17:08:19.155911-04:00'
+          format: date-time
+          type: string
+      type: object
+    MotionGovernorState:
+      description: Aggregated state of the motion governing system. Controls autonomous
+        motion and reflects obstacle and fault states.
+      properties:
+        autonomous_motion_enabled:
+          description: Whether autonomous motion is currently globally enabled. False
+            when in a stop state, in a non-autonomous operating mode, or manually
+            disabled via stop button.
+          type: boolean
+        state:
+          description: Current motion state. OK = nominal. SLOWDOWN = speed reduced.
+            STOP = motion halted.
+          enum:
+          - OK
+          - SLOWDOWN
+          - STOP
+          type: string
+        state_reasons:
+          description: 'Active reasons for the current motion state. Empty when nominal.
+            Possible values: POWER_SAVING_MODE_STOP (idle timeout), WATCHDOG_TIMEOUT_STOP
+            (messaging timeout / disconnected sensor), OBSTACLE_STOP, FAULT_STOP,
+            PAUSE_STOP (paused between tasks or by stop button), OBSTACLE_SLOWDOWN,
+            FAULT_SLOWDOWN.'
+          items:
+            enum:
+            - POWER_SAVING_MODE_STOP
+            - WATCHDOG_TIMEOUT_STOP
+            - OBSTACLE_STOP
+            - FAULT_STOP
+            - PAUSE_STOP
+            - OBSTACLE_SLOWDOWN
+            - FAULT_SLOWDOWN
+            type: string
+          type: array
+        timestamp:
+          type: string
+      required:
+      - autonomous_motion_enabled
+      - state
+      - state_reasons
+      type: object
+    MultiLineString:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Array of arrays of coordinates for the MultiLineString.
+          items:
+            items:
+              items:
+                type: number
+              type: array
+            type: array
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    MultiPoint:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Array of coordinates for the MultiPoint.
+          items:
+            items:
+              type: number
+            type: array
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    MultiPolygon:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Array of arrays of arrays of coordinates for the MultiPolygon.
+          items:
+            items:
+              items:
+                items:
+                  type: number
+                type: array
+              type: array
+            type: array
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    Network:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        revision:
+          type: number
+      type: object
+    NetworkMapDetails:
+      properties:
+        created_date:
+          type: string
+        lidar_sitemap:
+          "$ref": "#/components/schemas/LidarSitemapMetadata"
+        modified_date:
+          type: string
+        name:
+          type: string
+        revision:
+          type: number
+        site_bounds:
+          type: object
+        uid:
+          type: string
+      required:
+      - uid
+      - name
+      - modified_date
+      - created_date
+      - revision
+      type: object
+    NetworkMapStatus:
+      properties:
+        map:
+          "$ref": "#/components/schemas/NetworkMapDetails"
+        status:
+          enum:
+          - unknown
+          - localized_off_map
+          - loading_error
+          - on_map
+          type: string
+      required:
+      - status
+      type: object
+    ObstacleDetectionStatus:
+      properties:
+        obstacle_slowdown_types:
+          description: Types of obstacles causing slowdown behavior. Empty when no
+            slowdown. Same values as obstacle_stop_types.
+          items:
+            enum:
+            - PERSON_NEARBY
+            - OTHER
+            type: string
+          type: array
+        obstacle_stop_types:
+          description: Types of obstacles causing stop behavior. Empty when no stop.
+            PERSON_NEARBY = person in proximity. OTHER = generic obstacle.
+          items:
+            enum:
+            - PERSON_NEARBY
+            - OTHER
+            type: string
+          type: array
+        state:
+          description: Current obstacle handling state. NO_OBSTACLE = clear path.
+            DETECTED_OBSTACLE = obstacle requires stop. DETECTED_SLOWDOWN = obstacle
+            requires slowdown. FAULT = detection system fault (e.g. sensor not publishing).
+          enum:
+          - NO_OBSTACLE
+          - DETECTED_OBSTACLE
+          - DETECTED_SLOWDOWN
+          - FAULT
+          type: string
+        timestamp:
+          type: string
+      required:
+      - state
+      - obstacle_stop_types
+      - obstacle_slowdown_types
+      type: object
+    PaginatedFeatureCollectionResponse:
+      properties:
+        count:
+          example: 10
+          type: number
+        data:
+          "$ref": "#/components/schemas/FeatureCollection"
+        message:
+          example: success
+          type: string
+        pages:
+          example: 100
+          type: number
+        statusCode:
+          example: 200
+          type: number
+      required:
+      - pages
+      - count
+      - data
+      type: object
+    PathFollowStatus:
+      properties:
+        angle:
+          description: Angle (in radians) of the robot's heading relative to the nearest
+            node on the path
+          nullable: true
+          type: number
+        distance:
+          type: object
+        is_path_too_far:
+          description: Whether path is too far
+          nullable: true
+          type: boolean
+        lost:
+          description: Whether robot is lost
+          nullable: true
+          type: boolean
+        route_error:
+          description: Whether there is a route error
+          nullable: true
+          type: boolean
+      type: object
+    PlatformStatus:
+      properties:
+        api_ip_address:
+          description: API IP address and port
+          example: 192.168.3.42:9090
+          type: string
+        customer_tag:
+          description: Customer tag
+          example: customer-xyz
+          type: string
+        disk_available:
+          description: Available disk space
+          example: 42.1GB
+          type: string
+        disk_size:
+          description: Total disk size
+          example: 128.0GB
+          type: string
+        internet_connected:
+          description: Internet connection status
+          enum:
+          - Online
+          - Offline
+          type: string
+        robot_generation:
+          description: Robot drive mode/generation
+          example: GEN8v5
+          type: string
+        robot_id:
+          description: 4-digit robot identifier
+          example: '1234'
+          type: string
+        server_status:
+          description: Server connection status
+          enum:
+          - Online
+          - Offline
+          type: string
+        session_metrics:
+          allOf:
+          - "$ref": "#/components/schemas/SessionMetrics"
+          description: Current session metrics
+        software_version:
+          description: Software version with optional release phase
+          example: v1.2.3-beta
+          type: string
+        support_email:
+          description: Support email
+          example: support@example.com
+          type: string
+        support_phone_number:
+          description: Support phone number
+          example: "+1-800-555-1234"
+          type: string
+        today_metrics:
+          allOf:
+          - "$ref": "#/components/schemas/SessionMetrics"
+          description: Today's session metrics
+      required:
+      - today_metrics
+      - session_metrics
+      type: object
+    Point:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Coordinates of the Point.
+          example:
+          - 102
+          - 0.5
+          items:
+            type: number
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Point
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    Polygon:
+      properties:
+        bbox:
+          description: Bounding box of the coordinate range of the object.
+          items:
+            type: number
+          nullable: true
+          type: array
+        coordinates:
+          description: Array of arrays of coordinates for the Polygon.
+          items:
+            items:
+              items:
+                type: number
+              type: array
+            type: array
+          type: array
+        type:
+          description: Specifies the type of GeoJSON object.
+          enum:
+          - Feature
+          - FeatureCollection
+          - Point
+          - MultiPoint
+          - LineString
+          - MultiLineString
+          - Polygon
+          - MultiPolygon
+          - GeometryCollection
+          type: string
+      required:
+      - type
+      - coordinates
+      type: object
+    RetraceTaskParameters:
+      properties:
+        id:
+          description: The unique identifier for the retrace task
+          type: string
+        unidirectional:
+          description: Whether the retrace is unidirectional
+          type: boolean
+      type: object
+    Robot:
+      properties:
+        serialNumber:
+          example: '8886'
+          nullable: true
+          type: string
+        state:
+          "$ref": "#/components/schemas/RobotState"
+        status:
+          "$ref": "#/components/schemas/RobotStatusResponse"
+      required:
+      - status
+      - state
+      type: object
+    RobotCommandMissionLoadPostBody:
+      properties:
+        expiration:
+          description: Expiration date of the mission
+          format: date-time
+          type: string
+        mission:
+          allOf:
+          - "$ref": "#/components/schemas/Mission"
+          description: Mission details
+      type: object
+    RobotCommandMissionLoadPostResponse:
+      properties:
+        message:
+          description: Response message.
+          example: success
+          type: string
+        statusCode:
+          description: HTTP status code.
+          example: 200
+          type: number
+      required:
+      - message
+      - statusCode
+      type: object
+    RobotCommandMissionPlayPostBody:
+      properties:
+        expiration:
+          description: Expiration date of the mission
+          format: date-time
+          type: string
+        mission_id:
+          description: ID of the mission to play
+          type: string
+      required:
+      - mission_id
+      type: object
+    RobotResponse:
+      properties:
+        data:
+          allOf:
+          - "$ref": "#/components/schemas/Robot"
+          description: Robot data.
+        message:
+          description: Response message.
+          example: success
+          type: string
+        statusCode:
+          description: HTTP status code.
+          example: 200
+          type: number
+      required:
+      - message
+      - statusCode
+      - data
+      type: object
+    RobotState:
+      properties:
+        mission:
+          "$ref": "#/components/schemas/MissionState"
+      type: object
+    RobotStatusResponse:
+      properties:
+        battery:
+          "$ref": "#/components/schemas/BatteryStatusAdvanced"
+        drive_system_stop_flags:
+          "$ref": "#/components/schemas/DriveSystemStopFlagsStatus"
+        fail_safe:
+          "$ref": "#/components/schemas/FailSafeStatus"
+        localization:
+          "$ref": "#/components/schemas/LocalizationStatus"
+        motion_governor:
+          "$ref": "#/components/schemas/MotionGovernorState"
+        network_map:
+          "$ref": "#/components/schemas/NetworkMapStatus"
+        obstacle_handling:
+          "$ref": "#/components/schemas/ObstacleDetectionStatus"
+        path_follow:
+          "$ref": "#/components/schemas/PathFollowStatus"
+        platform:
+          "$ref": "#/components/schemas/PlatformStatus"
+        route_planner:
+          "$ref": "#/components/schemas/RoutePlannerStatusSimple"
+        velocity:
+          "$ref": "#/components/schemas/SystemVelocityVelocity"
+      type: object
+    RobotsPaginatedResponse:
+      properties:
+        count:
+          type: number
+        data:
+          items:
+            "$ref": "#/components/schemas/Robot"
+          nullable: true
+          type: array
+        message:
+          type: string
+        pages:
+          type: number
+        statusCode:
+          type: number
+      required:
+      - data
+      - pages
+      - count
+      type: object
+    RoutePlannerStatusSimple:
+      properties:
+        reachable_destinations_count:
+          description: Number of reachable destinations from the robot's current pose
+          type: number
+      required:
+      - reachable_destinations_count
+      type: object
+    SessionMetrics:
+      properties:
+        distance:
+          description: Distance traveled (e.g., "123.4m")
+          nullable: true
+          type: string
+        time_moving:
+          description: Time spent moving (e.g., "01:23:45")
+          nullable: true
+          type: string
+        time_on:
+          description: Time powered on (e.g., "02:34:56")
+          nullable: true
+          type: string
+      type: object
+    SystemVelocityVelocity:
+      properties:
+        angular_z:
+          description: Angular velocity around z axis
+          type: number
+        linear_x:
+          description: Linear velocity in x direction
+          type: number
+      type: object
+    Task:
+      properties:
+        after:
+          "$ref": "#/components/schemas/Transition"
+        description:
+          description: Optional, user-facing description for Task.
+          type: string
+        id:
+          description: Unique identifier for the Task.
+          type: string
+        name:
+          description: Optional, user-facing name for Task.
+          type: string
+        parameters:
+          allOf:
+          - "$ref": "#/components/schemas/TaskParameters"
+          oneOf:
+          - "$ref": "#/components/schemas/TaskGroupParameters"
+          - "$ref": "#/components/schemas/RetraceTaskParameters"
+          - "$ref": "#/components/schemas/DestinationTaskParameters"
+        properties:
+          additionalProperties: true
+          description: Optional, implementor convenience to place non-execution metadata.
+          type: object
+        type:
+          description: Discriminates what type of Task this is, determines shape of
+            parameters.
+          enum:
+          - TaskGroup
+          - DestinationTask
+          - RetraceTask
+          type: string
+      type: object
+    TaskGroup:
+      properties:
+        after:
+          "$ref": "#/components/schemas/Transition"
+        description:
+          description: Optional, user-facing description for Task.
+          type: string
+        id:
+          description: Unique identifier for the Task.
+          type: string
+        name:
+          description: Optional, user-facing name for Task.
+          type: string
+        parameters:
+          allOf:
+          - "$ref": "#/components/schemas/TaskGroupParameters"
+          oneOf:
+          - "$ref": "#/components/schemas/TaskGroupParameters"
+          - "$ref": "#/components/schemas/RetraceTaskParameters"
+          - "$ref": "#/components/schemas/DestinationTaskParameters"
+        properties:
+          additionalProperties: true
+          description: Optional, implementor convenience to place non-execution metadata.
+          type: object
+        type:
+          default: TaskGroup
+          description: Discriminates what type of Task this is, determines shape of
+            parameters.
+          enum:
+          - TaskGroup
+          - DestinationTask
+          - RetraceTask
+          type: string
+      type: object
+    TaskGroupParameters:
+      properties:
+        tasks:
+          description: List of tasks
+          items:
+            "$ref": "#/components/schemas/Task"
+          type: array
+      type: object
+    TaskParameters:
+      properties: {}
+      type: object
+    TokensResponse:
+      properties:
+        refreshToken:
+          description: Refresh token
+          type: string
+        token:
+          description: Access token
+          type: string
+        tokenExpires:
+          description: Token expiration timestamp in milliseconds
+          type: number
+      required:
+      - token
+      - refreshToken
+      - tokenExpires
+      type: object
+    Transition:
+      properties:
+        parameters:
+          description: 'Transition-specific parameters. Required for AfterDurationTransition:
+            { duration_sec: number }.'
+          type: object
+        type:
+          description: WaitForInputTransition = robot holds at the destination until
+            a play command is received. AfterDurationTransition = robot automatically
+            advances after `parameters.duration_sec` seconds.
+          enum:
+          - AfterDurationTransition
+          - WaitForInputTransition
+          type: string
+      type: object
+  securitySchemes:
+    bearer:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    x-api-key:
+      in: header
+      name: x-api-key
+      type: apiKey
+info:
+  contact: {}
+  description: |
+    # Getting Started with the Burro Cloud API
+
+
+    ## Background information
+    This API is used to command Burro robots and read their status. Robots intermittently or on-event update the cloud with their status, which can be
+    requested directly or subscribed to via webhooks.
+
+    The basic flow of operating a Burro robot is to create a Mission consisting
+    of a list of Tasks (usually destinations to navigate to).
+
+    This document describes the flow, endpoints, and payload for basic
+    mission operation via the API.
+
+    All requests and responses use `application/json`.
+
+    All status timestamps are in ISO-8601 string format with timezone included.
+
+    ### Companion Files
+    `mission_quickstart.py`: A short configurable script to quickly get up and running loading a mission to a robot.
+
+    `mission_api_verbose_flow.py`: A long-form script which prints full request and payload bodies at each step, as a first pass to get valid payload examples while developing client functionality.
+
+
+    ## Prerequisites
+    **API version:** 6.29.0  
+    **Base URL:** `https://boss-api.burro.ai`
+
+    Please request an API key from the Burro team for your customer.
+
+
+
+    ---
+
+    ## Login Flow
+
+    | Scheme | Header |
+    |---|---|
+    | API key | `x-api-key: <your-api-key>` |
+    | Bearer token | `Authorization: Bearer <token>` |
+
+    An API key is issued per customer account. A bearer token is obtained by logging in with
+    email and password and expires after the duration indicated in the response.
+
+    All subsequent requests require both the API key and the token.
+
+
+    ### Register an Account
+
+    First usage only - if an account does not yet exist for the provided email address, use the register endpoint.
+    The payload and response shape are identical to login.
+
+    **Request**
+
+    ```
+    POST /v1/authentication/email/register
+    ```
+
+    ```json
+    {
+      "email": "you@example.com",
+      "password": "your-password"
+    }
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "token": "<access-token>",
+      "refreshToken": "<refresh-token>",
+      "tokenExpires": 1772050954964
+    }
+    ```
+
+    A `401`, `404`, `422`, or `500` response from the login endpoint indicates the account does not exist and registration should be attempted.
+
+
+    ### Login to obtain a Bearer Token
+
+    This step can be followed instead of registration if registration is already complete.
+
+    **Request**
+
+    ```
+    POST /v1/authentication/email/login
+    ```
+
+    ```json
+    {
+      "email": "you@example.com",
+      "password": "your-password"
+    }
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "token": "<access-token>",
+      "refreshToken": "<refresh-token>",
+      "tokenExpires": 1740000000
+    }
+    ```
+    Store both tokens.
+
+    `token` is used to make API requests.
+    `refreshToken` is used on the `/refresh` endpoint to get a new token without reauthenticating.
+    `tokenExpires` is a Unix timestamp in milliseconds.
+
+
+    ### Refresh an Expired Token
+
+    Pass the `refreshToken` as the Bearer value to obtain a new token pair without
+    re-entering credentials.
+
+    **Request**
+
+    ```
+    GET /v1/authentication/refresh
+    Authorization: Bearer <refresh-token>
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "token": "<new-access-token>",
+      "refreshToken": "<new-refresh-token>",
+      "tokenExpires": 1740003600
+    }
+    ```
+
+    ---
+
+    ## Reading Network (Site) Data
+
+    A **network** (also called a site) contains the paths and named
+    destinations a robot can navigate between. Destinations carry the `id` and `name`
+    values required to construct mission tasks.
+
+    ### List Networks
+
+    **Request**
+
+    ```
+    GET /v1/networks
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "count": 3,
+      "pages": 1,
+      "data": [
+        { "id": "network-uuid-abc123", "name": "Vineyard Block 4", "revision": 3 },
+        { "id": "network-uuid-def456", "name": "Vineyard Block 7", "revision": 1 }
+      ]
+    }
+    ```
+
+    ### Get Network Geometry
+
+    Returns the full GeoJSON `FeatureCollection` for the network — all paths, stations,
+    and destinations as geometries with their properties.
+
+    **Request**
+
+    ```
+    GET /v1/networks/{networkId}
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "statusCode": 200,
+      "message": "success",
+      "data": {
+        "type": "FeatureCollection",
+        "features": [ ... ]
+      }
+    }
+    ```
+
+    ### List Destinations
+
+    Returns destinations as a paginated GeoJSON `FeatureCollection`. Each feature's
+    `id` and `properties.name` are used when constructing `DestinationTask` objects.
+    Expect `properties.type == "NetworkDestination"`, but this
+    list can be assumed to contain only destinations.
+
+    **Request**
+
+    ```
+    GET /v1/networks/{networkId}/destinations
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "count": 12,
+      "pages": 1,
+      "statusCode": 200,
+      "message": "success",
+      "data": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "id": "dest-id-1",
+            "geometry": { "type": "Point", "coordinates": [-122.0853, 37.4221] },
+            "properties": {
+              "type": "NetworkDestination",
+              "name": "Loading Area"
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "dest-id-2",
+            "geometry": { "type": "Point", "coordinates": [-122.0860, 37.4225] },
+            "properties": {
+              "type": "NetworkDestination",
+              "name": "Block C Center"
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+    ### List Stations and Paths
+
+    The same paginated `FeatureCollection` shape is returned by the stations and paths
+    endpoints for their respective feature types.
+
+    ```
+    GET /v1/networks/{networkId}/stations
+    GET /v1/networks/{networkId}/paths
+    ```
+
+    ---
+
+    ## Reading State and Status from Robots
+
+    The `/robots` endpoint returns a list of all robots associated with your customer. Status fields are opt-in via query parameters as-needed.
+
+    Status streams are updated by the robots at different frequencies. The
+    `timestamp` field in each status key reflects when the robot last reported that data — always check it before acting on the values.
+
+    Polling status as frequently as your application needs is acceptable,
+    but note that as of 6.29.0 value update frequency ranges from
+    0.1 - 0.5Hz (values updating every 2 to 10 seconds).
+
+    **Note on State vs. Status**: Status and state are differentiated semantically by the following:
+    Status is what the robot *is*, while state is what the robot *is doing*. Status contains main fields
+    about the robot's current position, battery, loaded map, etc; state contains information about the current mission and tasks.
+
+    ### List Robots with Status
+
+    **Request**
+
+    ```
+    GET /v1/robots?batteryStatus=true&localizationStatus=true&missionState=true&networkStatus=true
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "count": 2,
+      "pages": 1,
+      "data": [
+        {
+          "serialNumber": "8886",
+          "status": {
+            "battery": {
+              "percentage": 0.82,
+              "voltage": 48.3,
+              "current": -12.4,
+              "power": -597.5,
+              "consumed_energy": 120.3,
+              "is_charging": false,
+              "time_remaining_min": 210,
+              "alarm": false,
+              "alarm_reason": "",
+              "remaining_range": 4200.0
+            },
+            "localization": {
+              "fix": {
+                "latitude": 37.4221,
+                "longitude": -122.0853
+              },
+              "heading": 92.4,
+              "stats": {
+                "localization_status": "good",
+                "fix_status": "Fixed",
+                "satellite_count": 14,
+                "gps_confidence": 0.98,
+                "base_station_id": "BS-001",
+                "base_station_distance": 312.4,
+                "radio_rtk": -85.0,
+                "signal_strength": 42.0
+              },
+              "timestamp": "2026-02-24T14:00:00.000000+00:00"
+            },
+            "network_map": {
+              "status": "on_map",
+              "map": {
+                "uid": "network-uuid-abc123",
+                "name": "Burro Test Farm",
+                "revision": 3322,
+                "created_date": "2025-06-01T09:00:00+00:00",
+                "modified_date": "2026-01-15T11:30:00+00:00"
+              }
+            }
+          },
+          "state": {
+            "mission": null
+          }
+        }
+      ]
+    }
+    ```
+
+    The `status.network_map.map.uid` field identifies the network map currently loaded
+    on the robot — this is the `networkId` used in the Sites section above.
+
+    ### Available Status Query Parameters
+
+    All parameters are optional booleans. Omit any you do not need. Full field schemas and
+    enum values are documented in the OpenAPI specification.
+
+    | Parameter | Response key | Summary |
+    |---|---|---|
+    | `batteryStatus` | `status.battery` | Voltage, charge percentage (0.0–1.0), current, alarm |
+    | `localizationStatus` | `status.localization` | GPS fix, heading, RTK stats |
+    | `networkStatus` | `status.network_map` | Loaded map identity and `on_map` status |
+    | `missionState` | `state.mission` | Current task, progress, completion |
+    | `motionGovernorStatus` | `status.motion_governor` | `autonomous_motion_enabled`, stop/slowdown state |
+    | `obstacleHandlingStatus` | `status.obstacle_handling` | Obstacle detection state |
+    | `failSafeStatus` | `status.fail_safe` | Active fault identifiers |
+    | `platformStatus` | `status.platform` | Software version, connectivity |
+    | `velocityStatus` | `status.velocity` | `linear_x` (m/s), `angular_z` (rad/s) |
+    | `driveSystemStopFlagsStatus` | `status.drive_system_stop_flags` | Stop, e-stop, position-hold flags |
+    | `pathFollowStatus` | `status.path_follow` | Path tracking health |
+    | `routePlannerStatus` | `status.route_planner` | Reachable destination count |
+
+    ### Get a Single Robot
+
+    **Request**
+
+    ```
+    GET /v1/robots/{serialNumber}?missionState=true&batteryStatus=true&motionGovernorStatus=true&obstacleHandlingStatus=true
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "statusCode": 200,
+      "message": "success",
+      "data": {
+        "serialNumber": "8886",
+        "status": {
+          "battery": {
+            "percentage": 0.74,
+            "voltage": 47.1,
+            "current": -8.2,
+            "power": -386.2,
+            "consumed_energy": 201.5,
+            "is_charging": false,
+            "time_remaining_min": 185,
+            "alarm": false,
+            "alarm_reason": "",
+            "remaining_range": 3800.0
+          },
+          "motion_governor": {
+            "autonomous_motion_enabled": true,
+            "state": "OK",
+            "state_reasons": [],
+            "timestamp": "2026-02-24T14:01:00.000000+00:00"
+          },
+          "obstacle_handling": {
+            "state": "NO_OBSTACLE",
+            "obstacle_stop_types": [],
+            "obstacle_slowdown_types": [],
+            "timestamp": "2026-02-24T14:01:00.000000+00:00"
+          }
+        },
+        "state": {
+          "mission": {
+            "mission": { "id": "f47ac10b-...", "name": "On-robot Mission" },
+            "current_task": {
+              "progress": 0.42,
+              "sequence_num": 2,
+              "status": "RUNNING",
+              "task": { "id": "task-001", "type": "DestinationTask", "name": "Destination A" },
+              "task_inner_status": null
+            },
+            "next_task": {
+              "progress": 0.0,
+              "sequence_num": 3,
+              "status": "PAUSED",
+              "task": { "id": "task-002", "type": "DestinationTask", "name": "Destination B" },
+              "task_inner_status": null
+            },
+            "completed_tasks": [],
+            "completed_tasks_this_iteration": [],
+            "future_tasks": [],
+            "overall_progress": 0.0,
+            "is_complete": false,
+            "task_group_state": {
+              "current_iteration": 0,
+              "has_more_iterations": false,
+              "num_iterations": 1
+            },
+            "timestamp": "2026-02-24T14:01:00.000000+00:00"
+          }
+        }
+      }
+    }
+    ```
+
+    ---
+
+    ## Webhooks
+
+    Webhooks allow your server to receive event notifications from the Burro API without
+    polling. The API delivers a `POST` request to your registered URL when events occur,
+    such as a robot completing a task.
+
+    ### Register a Webhook
+
+    **Request**
+
+    ```
+    POST /v1/webhooks
+    ```
+
+    ```json
+    {
+      "url": "https://your-server.example.com/burro-events",
+      "secret": "optional-shared-secret"
+    }
+    ```
+
+    **Response** `201 Created`
+
+    ```json
+    {
+      "id": "wh_abc123",
+      "url": "https://your-server.example.com/burro-events"
+    }
+    ```
+
+    Retain the returned `id` for testing and deregistration.
+
+    ### Test a Webhook
+
+    Sends a test delivery to the registered URL to verify connectivity.
+
+    **Request**
+
+    ```
+    POST /v1/webhooks/test/{webhookId}
+    ```
+
+    **Response** `200 OK`
+
+    ### Event Delivery Format
+
+    When an event fires, the API sends a `POST` to your registered URL with a JSON body.
+
+    **Task completed event**
+
+    ```json
+    {
+      "event": "robot.task_completed",
+      "robot": {
+        "serialNumber": "8886"
+      },
+      "task": {
+        "id": "task-0000-0000-0000-000000000001",
+        "type": "DestinationTask",
+        "name": "Destination A",
+        "description": null,
+        "after": { "type": "WaitForInputTransition" },
+        "parameters": { "destination": { "id": "dest-id-1", "name": "Destination A" } },
+        "properties": null
+      }
+    }
+    ```
+
+    `task` contains the full `Task` object as submitted in the load payload — not a summary.
+
+    ### List Registered Webhooks
+
+    ```
+    GET /v1/webhooks?page=1&limit=100
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    {
+      "count": 1,
+      "pages": 1,
+      "data": [
+        { "id": "wh_abc123", "url": "https://your-server.example.com/burro-events" }
+      ]
+    }
+    ```
+
+    ### Delete a Webhook
+
+    ```
+    DELETE /v1/webhooks/{webhookId}
+    ```
+
+    **Response** `204 No Content`
+
+    ---
+
+    ## Sending a Robot on a Mission
+
+    This section combines the preceding steps into a complete flow: selecting a robot,
+    reading its current network, fetching destinations, registering a webhook, loading
+    a three-task mission, and advancing through each task by waiting for a webhook
+    delivery before issuing the next play command.
+
+    Destinations A and C's transition behavior (what happens when the task is complete) will be specified as "WaitForInput" -- the robot will complete the task then go into an idle state,
+    waiting for another command.
+
+    Destination B will use, as an example, "AfterDuration" parametrized to 5 seconds. This means
+    that after reaching Destination B, the robot will begin a 5 second countdown before automatically starting the task to Destination C.
+
+    ### Full Sequence
+
+    ```mermaid
+    sequenceDiagram
+        participant C as Client
+        participant A as Burro API
+        participant R as Robot
+
+        C->>A: GET /v1/robots?missionState=true
+        A-->>C: [{ serialNumber, status.network_map.map.uid }]
+
+        C->>A: GET /v1/networks/{networkId}/destinations
+        A-->>C: FeatureCollection of destinations
+
+        C->>A: POST /v1/webhooks
+        A-->>C: { id: "wh_abc123", url }
+
+        C->>A: POST /v1/robots/{serial}/command/mission/load
+        A->>R: Load mission (A: WaitForInput, B: AfterDuration 5s, C: WaitForInput)
+        A-->>C: { message, statusCode }
+
+        C->>A: POST /v1/robots/{serial}/command/mission/play
+        A->>R: Play
+        R-->>A: Task A (Destination A) complete — waiting
+        A-->>C: POST /your-webhook (robot.task_completed, Destination A)
+
+        C->>A: POST /v1/robots/{serial}/command/mission/play
+        A->>R: Play
+        R-->>A: Task B (Destination B) complete — auto-advances after 5s
+        A-->>C: POST /your-webhook (robot.task_completed, Destination B)
+
+        Note over R: auto-advancing to Destination C
+        R-->>A: Task C (Destination C) complete
+        A-->>C: POST /your-webhook (robot.task_completed, Destination C)
+    ```
+
+    ### Step 1 — Select a Robot and Identify Its Network
+
+    ```
+    GET /v1/robots?networkStatus=true
+    ```
+
+    From the response, select the target robot by `serialNumber` and read its loaded
+    network ID from `status.network_map.map.uid`. This value is used as `networkId` in
+    the next step.
+
+    ### Step 2 — Fetch Destination IDs
+
+    ```
+    GET /v1/networks/{networkId}/destinations
+    ```
+
+    From the returned GeoJSON feature collection, record the `id` and `properties.name`
+    of each destination you intend to include in the mission. These values map directly
+    to `destination.id` and `destination.name` in each task.
+
+    ### Step 3 — Register a Webhook
+
+    ```
+    POST /v1/webhooks
+    ```
+
+    ```json
+    {
+      "url": "https://your-server.example.com/burro-events",
+      "secret": "optional-shared-secret"
+    }
+    ```
+
+    Record the returned `id`. Optionally use `POST /v1/webhooks/test/{id}` to confirm
+    delivery before proceeding.
+
+    ### Step 4 — Load the Mission
+
+    Construct a mission object with a `TaskGroup` containing one `DestinationTask` per
+    stop. Each task's `after` field controls what happens after the robot arrives:
+
+    - **Destination A** uses `WaitForInputTransition` — robot holds until a play command is received.
+    - **Destination B** uses `AfterDurationTransition` — robot automatically advances to the next task after 5 seconds, with no play command required.
+    - **Destination C** uses `WaitForInputTransition` — robot holds, but as the final task the transition has no effect; the mission ends on arrival.
+
+    All `id` fields for tasks and missions must be UUIDs generated by the client. The `destination.id` and
+    `destination.name` values must exactly match what was returned in Step 2.
+
+    `mission.properties` and `mission.defaults` are required and must be present, even as empty objects `{}`.
+
+    To update rather than replace a mission, you may load a mission with the same ID, but must not modify already completed task definitions.
+
+    **Request**
+
+    ```
+    POST /v1/robots/{serialNumber}/command/mission/load
+    ```
+
+    ```json
+    {
+      "expiration": "2026-02-24T23:59:59+00:00",
+      "mission": {
+        "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "properties": {},
+        "defaults": {},
+        "tasks": {
+          "id": "a1b2c3d4-0000-0000-0000-000000000001",
+          "type": "TaskGroup",
+          "parameters": {
+            "tasks": [
+              {
+                "id": "task-0000-0000-0000-000000000001",
+                "type": "DestinationTask",
+                "name": "Destination A",
+                "after": { "type": "WaitForInputTransition" },
+                "parameters": { "destination": { "id": "dest-id-1", "name": "Destination A" } }
+              },
+              {
+                "id": "task-0000-0000-0000-000000000002",
+                "type": "DestinationTask",
+                "name": "Destination B",
+                "after": {
+                  "type": "AfterDurationTransition",
+                  "parameters": { "duration_sec": 5.0 }
+                },
+                "parameters": { "destination": { "id": "dest-id-2", "name": "Destination B" } }
+              },
+              {
+                "id": "task-0000-0000-0000-000000000003",
+                "type": "DestinationTask",
+                "name": "Destination C",
+                "after": { "type": "WaitForInputTransition" },
+                "parameters": { "destination": { "id": "dest-id-3", "name": "Destination C" } }
+              }
+            ]
+          }
+        }
+      }
+    }
+    ```
+
+    **Response** `200 OK`
+
+    ```json
+    { "statusCode": 200, "message": "success" }
+    ```
+
+    ### Step 5 — Play Task 1
+
+    ```
+    POST /v1/robots/{serialNumber}/command/mission/play
+    ```
+
+    ```json
+    {
+      "mission_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "expiration": "2026-02-24T23:59:59+00:00"
+    }
+    ```
+
+    The robot drives to Destination A. On arrival it stops and holds.
+
+    **Webhook received at your server:**
+
+    ```json
+    {
+      "event": "robot.task_completed",
+      "robot": { "serialNumber": "8886" },
+      "task": {
+        "id": "task-0000-0000-0000-000000000001",
+        "type": "DestinationTask",
+        "name": "Destination A",
+        "description": null,
+        "after": { "type": "WaitForInputTransition" },
+        "parameters": { "destination": { "id": "dest-id-1", "name": "Destination A" } },
+        "properties": null
+      }
+    }
+    ```
+
+    Verify `task.id` matches the expected task before issuing the next command.
+
+    ### Step 6 — Play Task 2
+
+    Re-issue the play command with the same `mission_id`. The robot drives to Destination B.
+    Because Destination B uses `AfterDurationTransition`, the robot automatically advances
+    to Destination C after 5 seconds — no further play command is needed.
+
+    ```
+    POST /v1/robots/{serialNumber}/command/mission/play
+    ```
+
+    ```json
+    {
+      "mission_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "expiration": "2026-02-24T23:59:59+00:00"
+    }
+    ```
+
+    **Webhook received:**
+
+    ```json
+    {
+      "event": "robot.task_completed",
+      ...
+        "parameters": { "destination": { "id": "dest-id-2", "name": "Destination B" } },
+      }
+    }
+    ```
+
+    The robot has already begun the transition to driving to Destination C at this point. No play command is required.
+
+    ### Step 7 — Receive Webhook: Task 3 Complete
+
+    The robot arrives at Destination C and the mission ends.
+
+    **Webhook received — mission complete:**
+
+    ```json
+    {
+      "event": "robot.task_completed",
+      ...
+        "parameters": { "destination": { "id": "dest-id-3", "name": "Destination C" } },
+      }
+    }
+    ```
+
+    All three tasks have completed. No further play command is required.
+
+    ---
+
+    ## Reference
+
+    ### Error Handling
+    Issuing a play or load command while robot is in motion will cause an error.
+
+    ### Common Error Response Shape
+
+    ```json
+    {
+      "statusCode": 401,
+      "message": "Unauthorized",
+      "error": "Invalid or missing credentials",
+      "timestamp": "2026-02-24T14:00:00.000Z",
+      "url": "/v1/robots",
+      "method": "GET"
+    }
+    ```
+
+    ### HTTP Status Codes
+
+    | Status | Meaning |
+    |---|---|
+    | `200` | Success |
+    | `201` | Resource created (webhook registration) |
+    | `204` | No content (webhook deletion) |
+    | `400` | Malformed payload or invalid field values |
+    | `401` | Missing or invalid credentials |
+    | `404` | Resource not found |
+    | `422` | Payload valid but semantically rejected |
+    | `500` | Internal server error |
+
+    ### Transition and Task Types
+
+    `WaitForInputTransition` — robot holds until a play command is received.  
+    `AfterDurationTransition` — robot advances automatically after `parameters.duration_sec` seconds.  
+    Omitting `after` will default to `WaitForInputTransition`.
+
+    `DestinationTask`, `RetraceTask`, and `TaskGroup` are the available task types.
+    Full schemas are in the OpenAPI specification under `Transition` and `Task`.
+
+  license:
+    name: Proprietary
+    url: https://support.burro.ai/
+  title: Burro BOSS API
+  version: 6.34.0
+openapi: 3.0.0
+paths:
+  "/authentication/email/login":
+    post:
+      description: Returns an Access Token and a Refresh Token given valid email and
+        password credentials. The email and password should be included in the request
+        body as JSON.
+      operationId: postEmailLogin
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AuthenticationEmailLoginRequestBody"
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokensResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '422':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      summary: Login with email and password.
+      tags:
+      - Authentication
+  "/authentication/email/register":
+    post:
+      description: Registers a new user with the given email and password, or logs
+        in if the email is already registered. Returns an Access Token and a Refresh
+        Token. The email and password should be included in the request body as JSON.
+        Any user may register, but to access specific Customer information, contact
+        Support to receive an API Key.
+      operationId: postEmailRegister
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AuthenticationEmailRegisterRequestBody"
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokensResponse"
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokensResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '422':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      summary: Register with email and password.
+      tags:
+      - Authentication
+  "/authentication/refresh":
+    get:
+      description: Returns a new Access Token given a valid Refresh Token from prior
+        authentication. The Refresh Token must be included in the Authorization header
+        as a Bearer token. The response will include a new Access Token and a new
+        Refresh Token.
+      operationId: postRefresh
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokensResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - bearer: []
+      summary: Refreshes Access Token using Refresh Token.
+      tags:
+      - Authentication
+  "/networks":
+    get:
+      description: Returns a list of Networks associated with the authenticated User.
+        You can optionally include query parameters to specify pagination options.
+      operationId: networksGet
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DestinationMapsPaginatedResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Networks for the authenticated User.
+      tags:
+      - Networks
+  "/networks/{networkId}":
+    get:
+      description: Returns a specific Network associated with the authenticated User,
+        including all Destinations, Paths, and Stations.
+      operationId: networkGet
+      parameters:
+      - in: path
+        name: networkId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/FeatureCollectionResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get a specific Network for the authenticated User.
+      tags:
+      - Networks
+  "/networks/{networkId}/destinations":
+    get:
+      description: Returns a list of Destinations associated with a specific Network.
+        You can optionally include query parameters to specify pagination options.
+      operationId: networkDestinationsGet
+      parameters:
+      - in: path
+        name: networkId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Destinations for a specific Network.
+      tags:
+      - Networks
+  "/networks/{networkId}/paths":
+    get:
+      description: Returns a list of Paths associated with a specific Network. You
+        can optionally include query parameters to specify pagination options.
+      operationId: networkPathsGet
+      parameters:
+      - in: path
+        name: networkId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Paths for a specific Network.
+      tags:
+      - Networks
+  "/networks/{networkId}/stations":
+    get:
+      description: Returns a list of Stations associated with a specific Network.
+        You can optionally include query parameters to specify pagination options.
+      operationId: networkStationsGet
+      parameters:
+      - in: path
+        name: networkId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PaginatedFeatureCollectionResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Stations for a specific Network.
+      tags:
+      - Networks
+  "/robots":
+    get:
+      description: 'Returns a list of Robots associated with the authenticated User.
+        You can optionally include query parameters to specify which status fields
+        to include in the response. '
+      operationId: robotsGet
+      parameters:
+      - in: query
+        name: networkStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: batteryStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: failSafeStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: velocityStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: localizationStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: platformStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: driveSystemStopFlagsStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: pathFollowStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: obstacleHandlingStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: motionGovernorStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: missionState
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: routePlannerStatus
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/RobotsPaginatedResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Robots for the authenticated User.
+      tags:
+      - Robots
+  "/robots/{serialNumber}":
+    get:
+      description: Returns a Robot associated with the authenticated user by serial
+        number. You can optionally include query parameters to specify which status
+        fields to include in the response.
+      operationId: robotGet
+      parameters:
+      - in: path
+        name: serialNumber
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: networkStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: batteryStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: failSafeStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: velocityStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: localizationStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: platformStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: driveSystemStopFlagsStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: pathFollowStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: obstacleHandlingStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: motionGovernorStatus
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: missionState
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: routePlannerStatus
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/RobotResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get robot by serial number.
+      tags:
+      - Robots
+  "/robots/{serialNumber}/command/mission/load":
+    post:
+      description: Loads a Mission to the Robot. The Mission will be created if it
+        does not exist, or updated if it does exist. The Mission will not be started
+        until the /play endpoint is called.
+      operationId: robotCommandMissionLoadPost
+      parameters:
+      - in: path
+        name: serialNumber
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RobotCommandMissionLoadPostBody"
+        description: The Mission to load to the Robot.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/RobotCommandMissionLoadPostResponse"
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Load a mission to the Robot.
+      tags:
+      - Robots
+  "/robots/{serialNumber}/command/mission/play":
+    post:
+      description: Starts a Mission on the Robot. The Mission must be loaded first
+        using the /load endpoint.
+      operationId: robotCommandMissionPlayPost
+      parameters:
+      - in: path
+        name: serialNumber
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RobotCommandMissionPlayPostBody"
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/RobotCommandMissionLoadPostResponse"
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+        '500':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Plays a mission on the Robot.
+      tags:
+      - Robots
+  "/webhooks":
+    get:
+      description: Returns a paginated list of Webhooks associated with the authenticated
+        User. You can optionally include query parameters to specify pagination options.
+      operationId: webhooksGet
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerWebhooksPaginatedResponse"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Get all Webhooks for the authenticated User.
+      tags:
+      - Webhooks
+    post:
+      description: Creates a new Webhook associated with the authenticated User. The
+        request body should include the URL to which the webhook will send POST requests
+        when triggered, as well as an optional description. Returns the created Webhook
+        entity.
+      operationId: webhooksPost
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerWebhooksPostBody"
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerWebhook"
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Create a new Webhook for the authenticated User.
+      tags:
+      - Webhooks
+  "/webhooks/test/{webhookId}":
+    post:
+      description: Triggers a test Webhook associated with the authenticated User.
+        The Webhook to trigger is identified by the webhookId path parameter. The
+        Webhook will receive a test payload with event "webhook.test" and a sample
+        message.
+      operationId: webhooksTest
+      parameters:
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook test sent successfully
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Trigger a test Webhook for the authenticated User.
+      tags:
+      - Webhooks
+  "/webhooks/{webhookId}":
+    delete:
+      description: Deletes a specific Webhook associated with the authenticated User.
+        The Webhook to delete is identified by the webhookId path parameter.
+      operationId: webhooksDelete
+      parameters:
+      - in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Webhook deleted successfully
+        '401':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+          description: ''
+      security:
+      - x-api-key: []
+      - bearer: []
+      summary: Delete a specific Webhook for the authenticated User.
+      tags:
+      - Webhooks
+servers:
+- url: https://boss-api.burro.ai
+- url: https://boss-api-dev.burro.ai
+tags: []
