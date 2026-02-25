@@ -1217,7 +1217,7 @@ info:
     {
       "token": "<access-token>",
       "refreshToken": "<refresh-token>",
-      "tokenExpires": 1740000000
+      "tokenExpires": 1772051054964
     }
     ```
     Store both tokens.
@@ -1245,7 +1245,7 @@ info:
     {
       "token": "<new-access-token>",
       "refreshToken": "<new-refresh-token>",
-      "tokenExpires": 1740003600
+      "tokenExpires": 1772051154964
     }
     ```
 
