@@ -1514,14 +1514,14 @@ info:
             "current_task": {
               "progress": 0.42,
               "sequence_num": 2,
-              "status": "RUNNING",
+              "status": "IN_PROGRESS",
               "task": { "id": "task-001", "type": "DestinationTask", "name": "Destination A" },
               "task_inner_status": null
             },
             "next_task": {
               "progress": 0.0,
               "sequence_num": 3,
-              "status": "PAUSED",
+              "status": "NOT_STARTED",
               "task": { "id": "task-002", "type": "DestinationTask", "name": "Destination B" },
               "task_inner_status": null
             },
