@@ -1171,7 +1171,7 @@ info:
     **Request**
 
     ```
-    POST /v1/authentication/email/register
+    POST /authentication/email/register
     ```
 
     ```json
@@ -1201,7 +1201,7 @@ info:
     **Request**
 
     ```
-    POST /v1/authentication/email/login
+    POST /authentication/email/login
     ```
 
     ```json
@@ -1235,7 +1235,7 @@ info:
     **Request**
 
     ```
-    GET /v1/authentication/refresh
+    GET /authentication/refresh
     Authorization: Bearer <refresh-token>
     ```
 
@@ -1262,7 +1262,7 @@ info:
     **Request**
 
     ```
-    GET /v1/networks
+    GET /networks
     ```
 
     **Response** `200 OK`
@@ -1286,7 +1286,7 @@ info:
     **Request**
 
     ```
-    GET /v1/networks/{networkId}
+    GET /networks/{networkId}
     ```
 
     **Response** `200 OK`
@@ -1312,7 +1312,7 @@ info:
     **Request**
 
     ```
-    GET /v1/networks/{networkId}/destinations
+    GET /networks/{networkId}/destinations
     ```
 
     **Response** `200 OK`
@@ -1355,8 +1355,8 @@ info:
     endpoints for their respective feature types.
 
     ```
-    GET /v1/networks/{networkId}/stations
-    GET /v1/networks/{networkId}/paths
+    GET /networks/{networkId}/stations
+    GET /networks/{networkId}/paths
     ```
 
     ---
@@ -1381,7 +1381,7 @@ info:
     **Request**
 
     ```
-    GET /v1/robots?batteryStatus=true&localizationStatus=true&missionState=true&networkStatus=true
+    GET /robots?batteryStatus=true&localizationStatus=true&missionState=true&networkStatus=true
     ```
 
     **Response** `200 OK`
@@ -1471,7 +1471,7 @@ info:
     **Request**
 
     ```
-    GET /v1/robots/{serialNumber}?missionState=true&batteryStatus=true&motionGovernorStatus=true&obstacleHandlingStatus=true
+    GET /robots/{serialNumber}?missionState=true&batteryStatus=true&motionGovernorStatus=true&obstacleHandlingStatus=true
     ```
 
     **Response** `200 OK`
@@ -1555,7 +1555,7 @@ info:
     **Request**
 
     ```
-    POST /v1/webhooks
+    POST /webhooks
     ```
 
     ```json
@@ -1583,7 +1583,7 @@ info:
     **Request**
 
     ```
-    POST /v1/webhooks/test/{webhookId}
+    POST /webhooks/test/{webhookId}
     ```
 
     **Response** `200 OK`
@@ -1617,7 +1617,7 @@ info:
     ### List Registered Webhooks
 
     ```
-    GET /v1/webhooks?page=1&limit=100
+    GET /webhooks?page=1&limit=100
     ```
 
     **Response** `200 OK`
@@ -1635,7 +1635,7 @@ info:
     ### Delete a Webhook
 
     ```
-    DELETE /v1/webhooks/{webhookId}
+    DELETE /webhooks/{webhookId}
     ```
 
     **Response** `204 No Content`
@@ -1663,25 +1663,25 @@ info:
         participant A as Burro API
         participant R as Robot
 
-        C->>A: GET /v1/robots?missionState=true
+        C->>A: GET /robots?missionState=true
         A-->>C: [{ serialNumber, status.network_map.map.uid }]
 
-        C->>A: GET /v1/networks/{networkId}/destinations
+        C->>A: GET /networks/{networkId}/destinations
         A-->>C: FeatureCollection of destinations
 
-        C->>A: POST /v1/webhooks
+        C->>A: POST /webhooks
         A-->>C: { id: "wh_abc123", url }
 
-        C->>A: POST /v1/robots/{serial}/command/mission/load
+        C->>A: POST /robots/{serial}/command/mission/load
         A->>R: Load mission (A: WaitForInput, B: AfterDuration 5s, C: WaitForInput)
         A-->>C: { message, statusCode }
 
-        C->>A: POST /v1/robots/{serial}/command/mission/play
+        C->>A: POST /robots/{serial}/command/mission/play
         A->>R: Play
         R-->>A: Task A (Destination A) complete — waiting
         A-->>C: POST /your-webhook (robot.task_completed, Destination A)
 
-        C->>A: POST /v1/robots/{serial}/command/mission/play
+        C->>A: POST /robots/{serial}/command/mission/play
         A->>R: Play
         R-->>A: Task B (Destination B) complete — auto-advances after 5s
         A-->>C: POST /your-webhook (robot.task_completed, Destination B)
@@ -1694,7 +1694,7 @@ info:
     ### Step 1 — Select a Robot and Identify Its Network
 
     ```
-    GET /v1/robots?networkStatus=true
+    GET /robots?networkStatus=true
     ```
 
     From the response, select the target robot by `serialNumber` and read its loaded
@@ -1704,7 +1704,7 @@ info:
     ### Step 2 — Fetch Destination IDs
 
     ```
-    GET /v1/networks/{networkId}/destinations
+    GET /networks/{networkId}/destinations
     ```
 
     From the returned GeoJSON feature collection, record the `id` and `properties.name`
@@ -1714,7 +1714,7 @@ info:
     ### Step 3 — Register a Webhook
 
     ```
-    POST /v1/webhooks
+    POST /webhooks
     ```
 
     ```json
@@ -1724,7 +1724,7 @@ info:
     }
     ```
 
-    Record the returned `id`. Optionally use `POST /v1/webhooks/test/{id}` to confirm
+    Record the returned `id`. Optionally use `POST /webhooks/test/{id}` to confirm
     delivery before proceeding.
 
     ### Step 4 — Load the Mission
@@ -1746,7 +1746,7 @@ info:
     **Request**
 
     ```
-    POST /v1/robots/{serialNumber}/command/mission/load
+    POST /robots/{serialNumber}/command/mission/load
     ```
 
     ```json
@@ -1801,7 +1801,7 @@ info:
     ### Step 5 — Play Task 1
 
     ```
-    POST /v1/robots/{serialNumber}/command/mission/play
+    POST /robots/{serialNumber}/command/mission/play
     ```
 
     ```json
@@ -1840,7 +1840,7 @@ info:
     to Destination C after 5 seconds — no further play command is needed.
 
     ```
-    POST /v1/robots/{serialNumber}/command/mission/play
+    POST /robots/{serialNumber}/command/mission/play
     ```
 
     ```json
