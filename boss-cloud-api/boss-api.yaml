@@ -2711,6 +2711,6 @@ paths:
       tags:
       - Webhooks
 servers:
-- url: https://boss-api.burro.ai
-- url: https://boss-api-dev.burro.ai
+- url: https://boss-api.burro.ai/v1
+- url: https://boss-api-dev.burro.ai/v1
 tags: []
