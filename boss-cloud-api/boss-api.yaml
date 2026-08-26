@@ -2029,7 +2029,7 @@ paths:
                 "$ref": "#/components/schemas/ErrorResponse"
           description: ''
       security:
-      - bearer: []
+        bearer: []
       summary: Refreshes Access Token using Refresh Token.
       tags:
       - Authentication
@@ -2076,7 +2076,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Networks for the authenticated User.
       tags:
       - Networks
@@ -2118,7 +2118,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get a specific Network for the authenticated User.
       tags:
       - Networks
@@ -2170,7 +2170,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Destinations for a specific Network.
       tags:
       - Networks
@@ -2222,7 +2222,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Paths for a specific Network.
       tags:
       - Networks
@@ -2274,7 +2274,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Stations for a specific Network.
       tags:
       - Networks
@@ -2372,7 +2372,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Robots for the authenticated User.
       tags:
       - Robots
@@ -2475,7 +2475,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get robot by serial number.
       tags:
       - Robots
@@ -2531,7 +2531,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Load a mission to the Robot.
       tags:
       - Robots
@@ -2585,7 +2585,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Plays a mission on the Robot.
       tags:
       - Robots
@@ -2620,7 +2620,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Get all Webhooks for the authenticated User.
       tags:
       - Webhooks
@@ -2652,7 +2652,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Create a new Webhook for the authenticated User.
       tags:
       - Webhooks
@@ -2680,7 +2680,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Trigger a test Webhook for the authenticated User.
       tags:
       - Webhooks
@@ -2706,7 +2706,7 @@ paths:
           description: ''
       security:
       - x-api-key: []
-      - bearer: []
+        bearer: []
       summary: Delete a specific Webhook for the authenticated User.
       tags:
       - Webhooks
